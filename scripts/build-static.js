@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const out = path.join(root, 'dist');
+const out = path.resolve(process.cwd(), 'dist');
 const files = [
   'index.html',
   'hero_ready.png',

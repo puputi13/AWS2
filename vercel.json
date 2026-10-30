@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "",
-  "buildCommand": "ROOT=.; if [ ! -f index.html ]; then ROOT=..; fi; mkdir -p dist && cp \"$ROOT/index.html\" \"$ROOT/hero_ready.png\" \"$ROOT/luna_ready.png\" \"$ROOT/ren_ready.png\" \"$ROOT/kai_ready.png\" \"$ROOT/enemy_slime.png\" \"$ROOT/enemy_bat.png\" \"$ROOT/enemy_goblin.png\" \"$ROOT/enemy_golem.png\" dist/",
+  "buildCommand": "if [ -f ../scripts/build-static.js ]; then node ../scripts/build-static.js; else node scripts/build-static.js; fi",
   "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": false,
