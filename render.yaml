@@ -1,0 +1,15 @@
+# Render（https://render.com）でゲームと対戦サーバーを同じ公開先に置く設定
+# GitHub にこのフォルダーをアップロード → Render の「New → Blueprint」でリポジトリを選ぶと、この内容で作られます
+services:
+  - type: web
+    name: ttw-online
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: TRUST_PROXY
+        value: "1"
+      - key: NODE_VERSION
+        value: "20"

@@ -1,0 +1,13 @@
+﻿OK   逕ｻ髱｢蜀・・遘ｻ蜍募ｺｧ讓咏ｳｻ縺ｯ螟画峩蜑阪→蜷後§
+OK   謨ｵ縺ｮHP繝ｻ謾ｻ謦・鴨繝ｻ髢馴囈繝ｻ蝣ｱ驟ｬ縺ｯ螟画峩蜑阪→蜷後§
+OK   謨ｵ縺ｮ騾溷ｺｦ繝ｻ謾ｻ謦・ｷ晞屬縺ｯ螟画峩蜑阪→蜷後§
+OK   蜈ｨ驛ｨ螻九・蜈ｨ繧ｹ繝・・繧ｸ縺ｮ讒矩縺ｨ謨ｵ讒区・縺ｯ螟画峩蜑阪→蜷後§
+OK   遘ｻ蜍輔・蠖薙◆繧雁愛螳壹・謾ｻ謦・・謨ｵAI繝ｻ繝峨い遘ｻ蜍輔・髢｢謨ｰ縺ｯ螟画峩蜑阪→蜷後§
+OK   30驛ｨ螻九・譬ｼ蟄千せ蠖薙◆繧雁愛螳壹→繝峨い髢矩哩蛻､螳壹・螟画峩蜑阪→蜷後§
+OK   繧ｿ繧､繝斐Φ繧ｰ繝舌ヨ繝ｫ縺ｮ蜻ｳ譁ｹ繝ｻ謨ｵ繝ｻ蠖ｱ縺ｮ謗･蝨ｰ邱壹′荳閾ｴ {"char":[294,296],"shadow":[289,289]}
+FAIL JS繧ｨ繝ｩ繝ｼ縺ｪ縺・IndexSizeError: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-1.703) is negative.
+    at acTelePath (file:///C:/Users/%E6%AD%A6%E7%94%B0%E5%A3%B1%E8%8C%B6/Desktop/AWS/index.html:6439:27)
+    at acDraw (file:///C:/Users/%E6%AD%A6%E7%94%B0%E5%A3%B1%E8%8C%B6/Desktop/AWS/index.html:6635:53)
+    at acLoop (file:///C:/Users/%E6%AD%A6%E7%94%B0%E5%A3%B1%E8%8C%B6/Desktop/AWS/index.html:7011:3)
+
+7 passed, 1 failed

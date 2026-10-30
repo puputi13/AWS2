@@ -1,0 +1,15 @@
+{
+  "port": 8787,
+  "host": "0.0.0.0",
+  "gameFile": "../index.html",
+  "matchSeconds": 60,
+  "countdownSeconds": 3,
+  "disconnectGraceSeconds": 15,
+  "lobbyGraceSeconds": 30,
+  "resultGraceMs": 1500,
+  "problemCount": 80,
+  "maxRooms": 200,
+  "roomIdleMinutes": 30,
+  "maxCharsPerSecond": 20,
+  "allowedOrigin": "*"
+}

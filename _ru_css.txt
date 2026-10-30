@@ -1,0 +1,14 @@
+    /* ----- タイピングバトル：森の中の古代遺跡（背景は #bt-bg に JS で描く） ----- */
+    #bt-arena{align-items:flex-start !important;background:#dfe9e4 !important;}
+    #bt-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background-repeat:no-repeat;}
+    #bt-arena .bt-fighter{position:relative;z-index:1;}
+    #bt-pimg{object-position:center bottom;}
+    #bt-enemy svg{filter:none;}
+    /* 足元の影：光は左上から → 少し右へずらす。キャラの足の下（同じ地面の高さ）にそろえる */
+    .bt-foot{position:relative;z-index:0;width:62%;height:14px;margin:-10px 0 -4px;transform:translateX(6px);
+      background:radial-gradient(ellipse at center,rgba(40,36,20,.42) 0%,rgba(40,36,20,.2) 45%,rgba(40,36,20,0) 72%);}
+    #bt-enemy[data-fly="1"]+.bt-foot{width:42%;opacity:.55;}
+    #bt-enemy.bt-boss+.bt-foot{width:82%;}
+    #bt-arena .bt-name{text-shadow:0 1px 0 rgba(255,255,255,.7);}
+    #bt-vs{color:#fff !important;opacity:.85 !important;text-shadow:0 2px 4px rgba(60,50,30,.45);}
+    #bt-prompt-box,#bt-input{background:#fffdf8 !important;}

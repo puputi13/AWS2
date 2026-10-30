@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>TYPE THE WORLD 遊び方ガイド</title>
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;width:297mm;height:210mm;overflow:hidden;background:#eee8da;color:#30271d}
+body{font-family:"Yu Gothic","Meiryo",sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{position:relative;width:297mm;height:210mm;padding:8mm 10mm 7mm;background:
+ radial-gradient(circle at 91% 8%,rgba(255,221,107,.5) 0 12mm,transparent 12.3mm),
+ radial-gradient(circle at 7% 94%,rgba(75,112,54,.18) 0 19mm,transparent 19.3mm),
+ linear-gradient(145deg,#f7f2e8 0%,#ece4d2 100%)}
+.page:before{content:"";position:absolute;inset:4mm;border:1px solid rgba(94,76,48,.25);pointer-events:none}
+header{height:26mm;display:flex;align-items:center;position:relative;border-bottom:1.2px solid #a98955;margin-bottom:3mm;padding:0 34mm 2mm 1mm}
+.kicker{font:700 8pt Georgia,serif;letter-spacing:.28em;color:#7b633f;text-transform:uppercase}
+h1{font:700 27pt Georgia,"Yu Mincho",serif;letter-spacing:.12em;margin:1mm 0;color:#5a3a1d}
+.lead{font-size:8.4pt;line-height:1.55;color:#625646}
+.hero{position:absolute;right:-1mm;bottom:-1mm;width:33mm;height:34mm;object-fit:contain;filter:drop-shadow(0 2mm 2mm rgba(53,36,18,.2))}
+.enemy{position:absolute;right:30mm;bottom:1mm;width:20mm;height:20mm;object-fit:contain;filter:drop-shadow(0 1mm 1mm rgba(53,36,18,.18))}
+.grid{display:grid;grid-template-columns:1.02fr 1.22fr 1fr;gap:3mm;height:156mm}
+.col{display:flex;flex-direction:column;gap:2.3mm;min-width:0}
+.card{background:rgba(255,253,247,.88);border:1px solid rgba(116,91,57,.28);border-radius:3mm;padding:2.4mm 3mm;box-shadow:0 1mm 2.5mm rgba(63,48,29,.07)}
+.card.grow{flex:1}
+.card h2{font:700 10.8pt "Yu Mincho",serif;color:#59391d;margin:0 0 1.2mm;display:flex;align-items:center;gap:1.5mm;border-bottom:1px solid #d6c29f;padding-bottom:.7mm}
+.num,.ic{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:6.5mm;height:6.5mm;border-radius:50%;background:#6d894d;color:white;font:bold 8pt Georgia,serif}
+.ic.gold{background:#b47c2a}.ic.red{background:#a34c3f}.ic.blue{background:#4b7392}
+p,li{font-size:6.85pt;line-height:1.4;margin:0}
+ul,ol{margin:0;padding-left:4mm}li+li{margin-top:.55mm}
+.mode{display:grid;grid-template-columns:7mm 1fr;gap:1.7mm;margin-top:1.5mm;align-items:start}
+.mode b{display:block;font-size:8pt;color:#4c321c;margin-bottom:.2mm}.mode span{font-size:7pt;line-height:1.38;color:#655948}
+.badge{display:inline-block;border-radius:3mm;background:#edf2e7;color:#42602f;padding:.4mm 1.8mm;font-weight:700;font-size:6.5pt;margin:.3mm .5mm .3mm 0}
+.badge.blue{background:#e7eff5;color:#315d7a}.badge.red{background:#f5e9e6;color:#8c3d35}.badge.gold{background:#f6edd8;color:#805b19}
+.keys{display:grid;grid-template-columns:21mm 1fr;gap:1.15mm 2mm;align-items:center}
+kbd{display:inline-block;min-width:5mm;text-align:center;padding:.55mm 1.1mm;border:1px solid #a99a84;border-bottom-width:1.6px;border-radius:1mm;background:#fff;font:bold 7pt "Yu Gothic";color:#47392b;box-shadow:0 .5mm 0 #ddd1bf}.keys b{font-size:7.4pt}.keys span{font-size:6.9pt;line-height:1.35;color:#655948}
+.flow{display:flex;align-items:center;gap:1mm;margin:1.4mm 0 1.8mm}.flow span{font-size:6.7pt;font-weight:700;background:#eee4d0;border-radius:2mm;padding:1mm 1.4mm}.flow i{font-style:normal;color:#9c7d4a}
+.tip{background:#f2ead9;border-left:2mm solid #759257;padding:1.2mm 1.7mm;margin-top:1.2mm;font-size:6.45pt;line-height:1.38}
+.warn{background:#f4e8df;border-left-color:#ae5b42}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1mm 2mm}.stats div{font-size:6.8pt;line-height:1.35}.stats b{color:#5b3a1d}
+.small{font-size:6.2pt;line-height:1.35;color:#665b4d}
+.footer{position:absolute;left:10mm;right:10mm;bottom:2.7mm;text-align:right;font-size:5.8pt;color:#817565;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div><div class="kicker">Typing × RPG Adventure</div><h1>TYPE THE WORLD</h1><div class="lead">タイピングで戦い、キャラクターを育て、森の古代遺跡を冒険しよう。<br>ホームでモードを選び、獲得したコインとXPで装備と能力を強化します。</div></div>
+  <img class="enemy" src="enemy_goblin.png" alt="ゴブリン"><img class="hero" src="hero_ready.png" alt="剣士">
+</header>
+<div class="grid">
+  <div class="col">
+    <section class="card">
+      <h2><span class="num">1</span>ゲームを始める</h2>
+      <ol>
+        <li>名前を登録してホームへ進みます。</li>
+        <li>遊びたいモードを選び、必要ならカテゴリと難易度を選びます。</li>
+        <li><b>タイピングは日本語入力をOFFにし、半角英数</b>で入力します。</li>
+      </ol>
+      <div class="tip">初級 40秒 ／ 中級 50秒 ／ 上級 60秒。まずは正確さを意識するとコンボが続きます。</div>
+    </section>
+    <section class="card grow">
+      <h2><span class="ic blue">⌨</span>タイピング</h2>
+      <p>表示された日本語をローマ字で入力。入力欄にカーソルを合わせ、<kbd>Enter</kbd>で計測開始です。</p>
+      <div class="flow"><span>正しく入力</span><i>→</i><span>お題クリア</span><i>→</i><span>スコア獲得</span></div>
+      <ul>
+        <li>速さはWPM、正確さは正確率として表示。</li>
+        <li>3コンボごとに得点倍率アップ＋残り時間3秒回復。</li>
+        <li>ミスは3秒減点し、コンボが0に戻ります。</li>
+        <li>「自己ベストのゴースト」で過去の自分と同じ問題順を競えます。</li>
+      </ul>
+      <p class="small" style="margin-top:1.6mm">カテゴリ：ことば／どうぶつ／食べ物／四字熟語／国／スポーツ／都道府県／職業／乗り物／自然・天気／ことわざ／ファンタジー／音楽</p>
+    </section>
+    <section class="card">
+      <h2><span class="ic red">⚔</span>タイピングバトル</h2>
+      <ul>
+        <li>お題を打ち切ると敵へ攻撃。速く打つほど威力アップ。</li>
+        <li>敵の攻撃ゲージに注意。ミスするとHP−3。</li>
+        <li>必殺ゲージ100％で<kbd>Enter</kbd>。弱点ワードはダメージ2倍。</li>
+        <li>5ステージごとにボス。3ステージごと／ボス後に一時強化を選択。</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="card grow">
+      <h2><span class="ic gold">🗡</span>アクション〈剣士〉</h2>
+      <p>全3部屋の見下ろし型ダンジョン。敵を全滅させ、開いたドアを進み、最後のボスを倒して出口へ。赤い予告範囲から回避しましょう。</p>
+      <div class="keys" style="margin-top:2.5mm">
+        <b><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></b><span><b>移動</b>　斜めでも速度は一定</span>
+        <b><kbd>左クリック</kbd></b><span><b>通常攻撃</b>　カーソル方向へ3連撃</span>
+        <b><kbd>Shift</kbd></b><span><b>回避</b>　移動方向へ123.2px／無敵0.3秒／CD 0.6秒</span>
+        <b><kbd>E</kbd></b><span><b>回転斬り</b>　SP30／CD 5秒</span>
+        <b><kbd>Q</kbd></b><span><b>必殺・突進斬り</b>　SP50／CD 12秒</span>
+        <b><kbd>Esc</kbd></b><span><b>一時停止</b>　右クリックでも回避</span>
+      </div>
+      <div class="tip"><b>つなげるコツ：</b>通常攻撃の終わり際に次の攻撃を押すとコンボ予約。攻撃前半のあとからShiftで回避キャンセルできます。</div>
+      <div class="tip warn"><b>照準：</b>移動中は移動方向、攻撃開始時はカーソル方向を優先。近くても背後の敵へは勝手に振り向きません。</div>
+      <h2 style="margin-top:3mm"><span class="ic">＋</span>戦闘中の成長</h2>
+      <ul>
+        <li>部屋クリアごとに3つから一時強化を選びます。強化はその挑戦中だけ有効です。</li>
+        <li>敵のドロップ：HP回復、SP回復、攻撃UP、速度UP、バリア、コイン。</li>
+        <li>SPは初期50。毎秒2回復し、攻撃命中でも回復します。</li>
+      </ul>
+      <p class="small" style="margin-top:1.5mm">ルナ（魔法使い）／レン（弓使い）／カイ（武闘家）も選択可能。技・HP・速度・通常攻撃はキャラクターごとに異なります。</p>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="card">
+      <h2><span class="ic blue">🌐</span>オンライン対戦</h2>
+      <ol>
+        <li>公開されたゲームURLから開き、表示名を入力。</li>
+        <li>作成側はカテゴリを選び「部屋を作る」。表示された<b>5文字コード</b>を相手へ伝えます。</li>
+        <li>参加側はコードを入力。2人とも「準備完了」で開始。</li>
+      </ol>
+      <div class="tip">制限時間60秒。正しく打った文字数が得点です。同点は引き分け。ローカルファイルからはオンライン対戦を利用できません。</div>
+    </section>
+    <section class="card grow">
+      <h2><span class="ic gold">★</span>成長・装備・記録</h2>
+      <div class="stats">
+        <div><b>XP・レベル</b><br>レベルでHPと攻撃力が上昇。ランクは「みならい」から「でんせつ」まで。</div>
+        <div><b>コイン</b><br>各モードで獲得。ショップで武器・防具・背景を購入。</div>
+        <div><b>装備</b><br>武器は攻撃力、防具はHPと防御力を強化。必要レベルあり。</div>
+        <div><b>ランキング</b><br>カテゴリ・難易度別に、この端末の自己ベストを記録。</div>
+      </div>
+      <h2 style="margin-top:3mm"><span class="ic">✓</span>覚えておこう</h2>
+      <ul>
+        <li>コイン、XP、装備、練習履歴、到達記録は自動保存。</li>
+        <li>セーブはブラウザー内のみ。別ブラウザー・別端末には自動で引き継がれません。</li>
+        <li>アクションはボス撃破後、<b>出口を通ると</b>ステージクリアです。</li>
+        <li>途中で「にげる」を選んでも、その挑戦で得たコインとXPは受け取れます。</li>
+      </ul>
+      <div class="tip warn"><b>困ったとき：</b>入力できない場合は日本語入力をOFFにします。アクションで動けない場合は<kbd>Esc</kbd>またはゲーム画面クリックで一時停止を解除してください。</div>
+    </section>
+    <section class="card">
+      <h2><span class="ic">◎</span>おすすめの進め方</h2>
+      <p><span class="badge blue">タイピングで練習</span><span class="badge red">バトルで実戦</span><span class="badge gold">装備を購入</span><span class="badge">遺跡を攻略</span></p>
+      <p class="small" style="margin-top:1mm">速さだけでなく正確さを上げ、コンボと時間回復を狙うのが上達への近道です。</p>
+    </section>
+  </div>
+</div>
+<div class="footer">TYPE THE WORLD｜遊び方ガイド（現行ゲーム仕様）</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+// 剣士の部位分割斬撃試作：攻撃段階、復帰、他キャラ非適用を確認
+const {openEdge,sleep}=require('./_img_lib');
+const path=require('path'),fs=require('fs');
+const url='file:///'+path.resolve(__dirname,'index.html').replace(/\\/g,'/');
+const out=path.join(__dirname,'_attack_shots'); fs.mkdirSync(out,{recursive:true});
+let pass=0,fail=0; const ok=(c,m)=>{console.log((c?'OK  ':'FAIL')+' '+m);c?pass++:fail++;};
+(async()=>{
+  const E=await openEdge(9461,url);
+  await E.send('Emulation.setDeviceMetricsOverride',{width:1100,height:820,deviceScaleFactor:1,mobile:false});
+  await E.send('Page.reload'); await sleep(2200);
+  await E.ev(`(()=>{ profile=defaultProfile('attack-test');profile.xp=5000;startAction('self',0);ac.stopped=true;ac.spawnT=99;ac.enemies=[];ac.p.inv=0;ac.p.x=WW/2;ac.p.y=WH/2+100;ac.cam.x=Math.max(0,ac.p.x-AC_W/2);ac.cam.y=Math.max(0,ac.p.y-AC_H*.58);return true;})()`);
+  const state=await E.ev(`(()=>({ok:heroSwordAttackState.ok,body:[heroSwordAttackState.body.width,heroSwordAttackState.body.height],arm:[heroSwordAttackState.arm.width,heroSwordAttackState.arm.height]}))()`);
+  ok(state.ok&&state.body[0]===624&&state.body[1]===739&&state.arm[0]===624,'元PNGから攻撃用の胴体と剣腕を実行時に分割');
+  const shot=async name=>{await sleep(40);const r=await E.send('Page.captureScreenshot',{format:'png',clip:{x:450,y:245,width:220,height:220,scale:3}});fs.writeFileSync(path.join(out,name),Buffer.from(r.result.data,'base64'));};
+  const pose=async(name,u,combo)=>{const called=await E.ev(`(()=>{ac.p.skill=null;ac.p.combo=${combo};ac.atkT0=.18;ac.p.atkT=.18*(1-${u});let n=0;const f=acDrawSwordAttack;acDrawSwordAttack=function(){n++;return f.apply(this,arguments);};acDraw();acDrawSwordAttack=f;return n;})()`);await shot(name);return called;};
+  ok(await pose('combo1_windup.png',.16,1)>0,'1段目の振りかぶりを描画');
+  ok(await pose('combo1_slash.png',.58,1)>0,'1段目の斬り抜けを描画');
+  ok(await pose('combo1_follow.png',.88,1)>0,'1段目の戻しを描画');
+  ok(await pose('combo2_reverse.png',.58,2)>0,'2段目は反対向きに斬り返す');
+  const idle=await E.ev(`(()=>{ac.p.atkT=0;let normal=0,cut=0;const a=acDrawSprite,b=acDrawSwordAttack;acDrawSprite=function(){if(arguments[1]===ac.imgReady)normal++;return a.apply(this,arguments);};acDrawSwordAttack=function(){cut++;return b.apply(this,arguments);};acDraw();acDrawSprite=a;acDrawSwordAttack=b;return {normal,cut};})()`); await shot('back_to_idle.png');
+  ok(idle.normal>0&&idle.cut===0,'攻撃終了後は元の待機PNGへ戻る');
+  const timing=await E.ev(`(()=>{ac.stopped=false;ac.p.atkT=0;ac.p.atkCD=0;ac.p.comboT=0;acAction('attack');const a={atkT:ac.p.atkT,atkCD:ac.p.atkCD,R:ac.p.mR,half:ac.p.mHalf};ac.stopped=true;return a;})()`);
+  ok(timing.atkT===.18&&timing.atkCD===.24&&timing.R===92&&timing.half===1,'既存の攻撃時間・間隔・範囲を維持');
+  await E.ev(`(()=>{startAction('self',0);ac.spawnT=99;ac.enemies=[];ac.p.inv=0;window.__attackCalls=0;window.__attackOrig=acDrawSwordAttack;acDrawSwordAttack=function(){window.__attackCalls++;return window.__attackOrig.apply(this,arguments);};acAction('attack');return true;})()`);
+  await sleep(900);
+  const live=await E.ev(`(()=>{const r={calls:window.__attackCalls,done:ac.p.atkT<=0};acDrawSwordAttack=window.__attackOrig;delete window.__attackOrig;ac.stopped=true;return r;})()`);
+  ok(live.calls>0&&live.done,'実際の更新・描画ループで斬撃して待機へ復帰');
+  await E.ev(`(()=>{startAction('mage',0);ac.stopped=true;ac.p.atkT=.1;ac.atkT0=.18;let n=0;const f=acDrawSwordAttack;acDrawSwordAttack=function(){n++;return f.apply(this,arguments);};acDraw();acDrawSwordAttack=f;return n;})()`).then(n=>ok(n===0,'他キャラクターには剣腕アニメーションを適用しない'));
+  ok(E.errors.length===0,'部位分割斬撃でJSエラーなし');
+  console.log('\n'+pass+' passed, '+fail+' failed'); if(E.errors.length)console.log(E.errors.join('\n'));
+  E.close();process.exit(fail?1:0);
+})().catch(e=>{console.error(e);process.exit(1);});
