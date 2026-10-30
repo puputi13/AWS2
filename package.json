@@ -4,9 +4,10 @@
   "private": true,
   "description": "TYPE THE WORLD（ゲーム本体 index.html とオンライン対戦サーバー）",
   "scripts": {
+    "build": "node scripts/build-static.js",
     "start": "node server/server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   }
 }
