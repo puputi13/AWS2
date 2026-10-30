@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_5kQp2NvkmCk3JGPM9OOEKRyMy3pO",
+  "orgId": "team_LWBY9tQbNBhfgLsOemNt4UQd",
+  "projectName": "server",
+  "settings": {
+    "createdAt": 1793344659811,
+    "framework": "node",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": "server",
+    "directoryListing": false,
+    "nodeVersion": "26.x"
+  }
+}

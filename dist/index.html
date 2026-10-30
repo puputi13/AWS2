@@ -113,6 +113,9 @@
     .mode-btn .mode-ic{font-size:1.1rem;line-height:1;}
     .mode-btn .mode-name{font-size:.86rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;}
     .mode-btn.selected{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(110,70,20,.25);}
+    .mode-btn:disabled{opacity:.5;cursor:not-allowed;background:rgba(255,252,244,.4);}
+    .mode-btn:disabled:hover{background:rgba(255,252,244,.4);}
+    .mode-soon{display:inline-block;margin-left:4px;padding:0 5px;border-radius:6px;background:#8a7a68;color:#fff;font-size:.62rem;font-weight:700;vertical-align:middle;}
     #home-mode-panel{display:flex;flex-direction:column;align-items:center;gap:8px;padding:9px 12px 12px;}
     #home-mode-desc{width:100%;font-size:.8rem;line-height:1.55;color:#3e2a1a;text-align:center;}
     #home-mode-desc b{color:var(--accent);}
@@ -3842,6 +3845,14 @@ const HOME_MODES={
   online:{go:'▶ オンライン対戦へ',cat:false,diff:false,btn:'online-btn',cls:'online',
     desc:()=>'別のパソコンの人と<b>同じお題・60秒</b>のタイピング勝負。正しく打った文字数が得点です。表示名を入れて、部屋を作ってコードを伝えるか、コードを入力して参加します。お題のカテゴリは<b>部屋を作る人</b>が選びます。'},
 };
+// オンライン対戦は調整中。true に戻すと、ホームのボタン・起動時の自動表示・対戦画面がすべて有効になる
+const ONLINE_ENABLED=false;
+if(!ONLINE_ENABLED){
+  delete HOME_MODES.online;   // ←→キーの切りかえや、保存済みの選択（homeMode）からも外す
+  const ob=document.querySelector('#home-modes .mode-btn[data-mode="online"]');
+  if(ob){ ob.disabled=true; ob.setAttribute('aria-disabled','true'); ob.title='オンライン対戦は調整中です';
+    ob.querySelector('.mode-name').innerHTML='オンライン対戦<small class="mode-soon">調整中</small>'; }
+}
 let homeMode='typing';
 function setHomeMode(m,noSave){
   if(!HOME_MODES[m]) m='typing';
@@ -7527,6 +7538,7 @@ function olExit(){ // オンライン対戦の画面から出る（アカウン�
   else initNameScreen();
 }
 function showOnline(){
+  if(!ONLINE_ENABLED) return;   // 調整中：対戦画面へは入らない
   showScreen('screen-online');
   const sel=olEl('ol-cat-sel');
   if(!sel.options.length) sel.innerHTML=Object.keys(CATEGORIES).filter(k=>PROMPTS[k]&&PROMPTS[k].length>=5).map(k=>'<option value="'+k+'">'+CATEGORIES[k]+'</option>').join('');
@@ -7938,7 +7950,7 @@ document.getElementById('account-btn').addEventListener('click',showAccounts);
 {
   const acc=loadAccounts();
   const prof=getProfile();
-  const wantOnline=/^#online$/i.test(location.hash)||(/^https?:$/.test(location.protocol)&&!acc.list.length);
+  const wantOnline=ONLINE_ENABLED&&(/^#online$/i.test(location.hash)||(/^https?:$/.test(location.protocol)&&!acc.list.length));
   if(wantOnline){ if(prof&&prof.name){ profile=prof; playerName=prof.name; } showOnline(); }
   else if(acc.list.length>1){ if(prof){ profile=prof; playerName=prof.name; } showAccounts(); }
   else if(prof&&prof.name){ profile=prof; playerName=prof.name; showHome(); }
