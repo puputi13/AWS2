@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "",
-  "buildCommand": "npm run build",
+  "buildCommand": "mkdir -p dist && cp index.html hero_ready.png luna_ready.png ren_ready.png kai_ready.png enemy_slime.png enemy_bat.png enemy_goblin.png enemy_golem.png dist/",
   "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": false,
